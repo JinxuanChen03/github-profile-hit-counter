@@ -17,7 +17,7 @@ with open('counter.txt', 'w') as f:
     f.write(str(count))
 
 # 生成计数图片
-count_str = str(count)
+count_str = str(count).zfill(8)  # 将计数转换为8位字符串，左侧补0
 digit_images = [Image.open(f'assets/themes/test/{digit}.png') for digit in count_str]
 
 width = sum(img.width for img in digit_images)
