@@ -18,7 +18,7 @@ with open('counter.txt', 'w') as f:
 
 # 生成计数图片
 count_str = str(count)
-digit_images = [Image.open(f'digits/{digit}.png') for digit in count_str]
+digit_images = [Image.open(f'assets/themes/test/{digit}.png') for digit in count_str]
 
 width = sum(img.width for img in digit_images)
 height = max(img.height for img in digit_images)
