@@ -28,7 +28,7 @@ cursor.execute('UPDATE counter SET count = ? WHERE id = 1', (count,))
 conn.commit()
 
 # 生成计数图片
-count_str = str(count).zfill(8)  # 将计数转换为8位字符串，左侧补0
+count_str = str(count).zfill(10)  # 将计数转换为10位字符串，左侧补0
 digit_images = [Image.open(f'assets/themes/test/{digit}.png') for digit in count_str]
 
 width = sum(img.width for img in digit_images)
@@ -41,7 +41,7 @@ for img in digit_images:
     combined_image.paste(img, (x_offset, 0))
     x_offset += img.width
 
-combined_image.save('hit_counter.png')
+combined_image.save('profile-3d-contrib/hit_counter.png')
 
 # 关闭数据库连接
 conn.close()
