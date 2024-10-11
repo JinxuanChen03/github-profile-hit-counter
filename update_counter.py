@@ -43,7 +43,7 @@ for img in digit_images:
     x_offset += img.width
 
 # 确保文件夹存在
-output_dir = 'profile-3d-contrib'
+output_dir = 'profile-hit-counter'
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
