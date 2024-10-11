@@ -1,20 +1,31 @@
-import os
+import sqlite3
 from PIL import Image
-import io
+
+# 连接到 SQLite 数据库（如果数据库不存在，则会自动创建）
+conn = sqlite3.connect('hit_counter.db')
+cursor = conn.cursor()
+
+# 创建计数器表（如果表不存在）
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS counter (
+    id INTEGER PRIMARY KEY,
+    count INTEGER
+)
+''')
 
 # 读取当前计数
-if os.path.exists('counter.txt'):
-    with open('counter.txt', 'r') as f:
-        count = int(f.read().strip())
+cursor.execute('SELECT count FROM counter WHERE id = 1')
+row = cursor.fetchone()
+if row:
+    count = row[0]
 else:
     count = 0
+    cursor.execute('INSERT INTO counter (id, count) VALUES (1, ?)', (count,))
 
 # 更新计数
 count += 1
-
-# 保存新的计数
-with open('counter.txt', 'w') as f:
-    f.write(str(count))
+cursor.execute('UPDATE counter SET count = ? WHERE id = 1', (count,))
+conn.commit()
 
 # 生成计数图片
 count_str = str(count).zfill(8)  # 将计数转换为8位字符串，左侧补0
@@ -31,3 +42,6 @@ for img in digit_images:
     x_offset += img.width
 
 combined_image.save('hit_counter.png')
+
+# 关闭数据库连接
+conn.close()

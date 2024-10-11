@@ -31,9 +31,13 @@ jobs:
           python update_counter.py
 
       - name: Commit and push changes
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add .
-          git commit -m 'Update hit counter'
-          git push
+        uses: crazy-max/ghaction-github-pages@v3.1.0
+        with:
+          target_branch: output-3d-contrib
+          build_dir: profile-3d-contrib
+        # run: |
+        #   git config --global user.name 'github-actions[bot]'
+        #   git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        #   git add .
+        #   git commit -m 'Update hit counter'
+        #   git push
