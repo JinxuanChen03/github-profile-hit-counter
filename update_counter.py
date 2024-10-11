@@ -1,3 +1,4 @@
+import os
 import sqlite3
 from PIL import Image
 
@@ -41,7 +42,13 @@ for img in digit_images:
     combined_image.paste(img, (x_offset, 0))
     x_offset += img.width
 
-combined_image.save('profile-3d-contrib/hit_counter.png')
+# 确保文件夹存在
+output_dir = 'profile-3d-contrib'
+if not os.path.exists(output_dir):
+    os.makedirs(output_dir)
+
+# 保存图片
+combined_image.save(os.path.join(output_dir, 'hit_counter.png'))
 
 # 关闭数据库连接
 conn.close()
